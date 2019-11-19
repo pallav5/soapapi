@@ -2,16 +2,18 @@ from django.shortcuts import render
 import requests
 import xmltodict
 import json
-from zeep import Client
-# from django.utils.safestring import SafeString
+from zeep import Client # I couldnt use zeep modules
+
 
 
 def home(request):
     url = 'http://dev.usbooking.org/us/UnitedSolutions?wsdl'
 
-    # headers = {'content-type': 'application/soap+xml'}
+    #The headers are important. Most SOAP requests will not work without the correct headers.
+    # application/soap+xml is probably the more correct header to use (but this api prefers text/xml
     headers = {'content-type': 'text/xml'}
 
+    #payload
     body = """ <soapenv:Envelope  xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:book="http://booking.us.org/">    <soapenv:Header/>    <soapenv:Body>     
       <book:SectorCode>          <strUserId>USERID</strUserId>       </book:SectorCode>    </soapenv:Body>
        </soapenv:Envelope>   """
